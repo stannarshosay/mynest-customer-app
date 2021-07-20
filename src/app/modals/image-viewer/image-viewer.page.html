@@ -1,0 +1,15 @@
+<ion-content fullscreen>
+
+    <ion-item class="close-fake" lines="none" text-center>
+        <ion-button fill="clear" color="light" (click)="dismiss()">
+            <ion-icon name="close" slot="start"></ion-icon>
+        </ion-button>
+    </ion-item>
+
+
+    <ion-slides *ngIf="showSlides" pager="true" [options]="slideOpts" #slides>
+        <ion-slide *ngFor="let image of gallery">
+            <img [src]="image.thumb" alt="Image Description">
+        </ion-slide>
+    </ion-slides>
+</ion-content>

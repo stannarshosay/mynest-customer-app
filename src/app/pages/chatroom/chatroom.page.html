@@ -1,0 +1,112 @@
+<app-header title="Messages"></app-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <main class="sl-main pt-0 pb-0">
+        <div class="sl-main-section pt-0 pb-0">
+            <div class="sl-dashboardbox__content">
+                <div class="sl-inbox__user" *ngIf="!isGettingContacts">
+                    <div class="no-message" *ngIf="showNoContacts">
+                        <img src="assets/images/inbox/no-message.png">
+                        <p class="text-center">No messages yet, start converstation!</p>
+                    </div>
+                    <ul class="sl-inbox__user--list">
+                        <li *ngFor="let contact of contacts" (click)="loadChatroom(contact)">
+                            <img src="https://mynestonline.com/collection/images/company-logo/{{getImagePath(contact.profilePic)}}" alt="Image Description">
+                            <div class="sl-inbox__user--text">
+                                <h5>{{contact.vendorName}}</h5>
+                                <div fxLayout="row" fxLayoutAlign="space-between center">
+                                    <h6><em>{{checkLength(contact.lastMessage?contact.lastMessage:'No messages yet')}}</em></h6>
+                                    <small>{{contact.lastMessageTime?getBeautifiedDate(contact.lastMessageTime):''}}</small>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div *ngIf="isGettingContacts" class="skeleton">
+                    <ion-list>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item>
+                            <ion-avatar slot="start" class="mr-3">
+                                <ion-skeleton-text animated></ion-skeleton-text>
+                            </ion-avatar>
+                            <ion-label>
+                                <h3>
+                                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                                </h3>
+                                <p>
+                                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </div>
+            </div>
+        </div>
+    </main>
+</ion-content>

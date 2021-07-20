@@ -1,0 +1,111 @@
+<app-header title="Home"></app-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="sl-main-banner" *ngIf="showTopImages">
+        <ion-spinner name="crescent" class="ml-auto mr-auto d-block" color="primary" *ngIf="isGettingHomeTopImages"></ion-spinner>
+        <ion-slides pager="true" [options]="slideOpts" *ngIf="!isGettingHomeTopImages">
+            <ion-slide *ngFor="let topAd of topAds">
+                <img (click)="getAdLink(topAd.website)" [class.default-cursor]="topAd.website==null" style="height: 170px;object-fit: unset;width:100%" [src]="getImagePath(topAd.picName)" alt="Image Description">
+            </ion-slide>
+        </ion-slides>
+    </div>
+    <main class="sl-main pt-0">
+        <section class="sl-main-section category-background">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-9 col-xl-8">
+                        <div class="sl-sectionHead">
+                            <div class="sl-sectionHead__title sl-below-line sl-below-line__active">
+                                <h2>Choose Category</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sl-category sl-row">
+                    <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-3" *ngIf="!isCategoryLoaded"></ion-spinner>
+                    <div class="sl-col sl-col-sm-1-of-2 sl-col-md-1-of-3 sl-col-lg-1-of-4 sl-col-xl-1-of-5" *ngFor="let category of homeCategories">
+                        <div class="sl-category__service" (click)="goToVendorListing(category)">
+                            <img src="https://mynestonline.com/collection/images/category-icons/{{category.iconPath}}" alt="image Description">
+                            <div class="sl-category__description">
+                                <h5>{{category.categoryName}}</h5>
+                            </div>
+                            <div class="sl-category__icon"><i class="ti-arrow-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <a routerLink="/categories" routeDirection="forward" class="btn sl-btn sl-btn-active mn-all-category ion-activatable ripple-parent">View All<ion-ripple-effect></ion-ripple-effect></a>
+            </div>
+        </section>
+        <div class="sl-main-banner" *ngIf="showBottomImages">
+            <ion-spinner color="primary" class="ml-auto mr-auto d-block" name="crescent" *ngIf="isGettingHomeBottomImages"></ion-spinner>
+            <ion-slides pager="true" [options]="slideOpts" *ngIf="!isGettingHomeBottomImages">
+                <ion-slide *ngFor="let bottomAd of bottomAds">
+                    <img (click)="getAdLink(bottomAd.website)" [class.default-cursor]="bottomAd.website==null" style="height: 170px;object-fit: unset;width:100%" [src]="getImagePath(bottomAd.picName)" alt="Image Description">
+                </ion-slide>
+            </ion-slides>
+        </div>
+        <section class="sl-main-section" *ngIf="isNewsfeedAvailable">
+            <div class="row justify-content-center">
+                <div class="col-lg-9 col-xl-8">
+                    <div class="sl-sectionHead">
+                        <div class="sl-sectionHead__title sl-below-line sl-below-line__active">
+                            <h2>Latest Newsfeeds</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sl-featuredProducts">
+                <ion-spinner name="crescent" color="primary" class="d-block ml-auto mr-auto mt-3" *ngIf="!isNewsfeedLoaded"></ion-spinner>
+                <ion-slides [options]="slideNewsOpts" class="i-newsfeed">
+                    <ion-slide *ngFor="let news of homeNewsfeeds">
+                        <div>
+                            <div class="sl-latestblog sl-featuredProducts--post" [routerLink]="['/newsfeed/'+news.newsId]">
+                                <figure>
+                                    <img src="https://mynestonline.com/collection/images/newsfeed/{{getNewsfeedPath(news.imagePath)}}" alt="Image Description">
+                                </figure>
+                                <div class="sl-featuredProducts--post__content">
+                                    <div class="sl-featuredProducts--post__title">
+                                        <h5>{{news.title}}</h5>
+                                        <div fxLayout="row nowrap" fxLayoutAlign="space-between center">
+                                            <time>{{getBeautifiedDate(news.createdDate)}}</time>
+                                            <div class="sl-shareHolder">
+                                                <a (click)="$event.stopPropagation()" mat-button [matMenuTriggerFor]="belowMenu" class="slShareHolder"><i class="ti-sharethis"></i></a>
+                                                <mat-menu #belowMenu="matMenu" yPosition="above" xPosition="before">
+                                                    <div class="sl-shareHolder__option">
+                                                        <ul class="sl-socialicons">
+                                                            <li class="sl-facebook">
+                                                                <a (click)="$event.stopPropagation()" href="https://www.facebook.com/sharer/sharer.php?u={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                            </li>
+                                                            <li class="sl-twitter">
+                                                                <a (click)="$event.stopPropagation()" href="https://twitter.com/intent/tweet?url={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                                            </li>
+                                                            <li class="sl-rss">
+                                                                <a (click)="$event.stopPropagation()" href="https://mail.google.com/mail/?view=cm&fs=1&su={{getEncoded(news.title)}}&body={{getShareLink(news.newsId)}}" target="_blank"><i class="far fa-envelope"></i></a>
+                                                            </li>
+                                                            <li class="sl-linkedin">
+                                                                <a (click)="$event.stopPropagation()" href="https://www.linkedin.com/sharing/share-offsite/?url={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                            </li>
+                                                            <li class="sl-whatsapp">
+                                                                <a (click)="$event.stopPropagation()" href="https://wa.me/?text={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </mat-menu>
+                                            </div>
+                                        </div>
+                                        <div class="sl-description">
+                                            <p class="mn-news-p">{{checkLength(news.description)}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ion-slide>
+                </ion-slides>
+                <a routerLink="/newsfeeds" routeDirection="forward" class="btn sl-btn sl-btn-active mn-all-category ion-activatable ripple-parent">View All<ion-ripple-effect></ion-ripple-effect></a>
+            </div>
+        </section>
+    </main>
+</ion-content>

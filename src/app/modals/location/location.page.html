@@ -1,0 +1,101 @@
+<ion-header>
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-button size="small" fill="clear" shape="round" (click)="dismiss(false)">
+                <ion-icon color="danger" slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>Select District</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div *ngIf="isLoaded">
+        <ion-list>
+            <ion-item (click)="saveLocation(location)" *ngFor="let location of locationList">
+                <ion-label>
+                    <h3>{{location.district}}</h3>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+    <!--skeleton text-->
+    <div *ngIf="!isLoaded">
+        <ion-list>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>
+                    <h3>
+                        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    </h3>
+                    <p>
+                        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                    </p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+    </div>
+</ion-content>

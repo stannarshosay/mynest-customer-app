@@ -1,27 +1,87 @@
 #container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 #container strong {
-  font-size: 20px;
-  line-height: 26px;
+    font-size: 20px;
+    line-height: 26px;
 }
 
 #container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
+    font-size: 16px;
+    line-height: 22px;
+    color: #8c8c8c;
+    margin: 0;
 }
 
 #container a {
-  text-decoration: none;
+    text-decoration: none;
+}
+
+ion-label {
+    font-size: 9px;
+}
+
+.mn-icon {
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    height: 25px;
+    width: 25px;
+    &.add {
+        background-image: url("../../assets/icon/addA.png");
+        width: 50px!important;
+        height: 50px!important;
+        margin-top: -23px!important;
+        box-shadow: inset 2px 2px 9px lightgrey;
+        border-radius: 50%;
+    }
+}
+
+ion-tabs {
+    contain: none;
+}
+
+ion-tab-bar {
+    contain: none;
+    box-shadow: 0px -1px 13px grey;
+}
+
+ion-tab-button::part(native) {
+    overflow: visible;
+}
+
+ion-badge {
+    left: 60%;
+    top: 3px;
+    padding: 3px;
+    font-size: 10px;
+    min-width: 18px;
+}
+
+.version-logo img {
+    width: 70px;
+    height: 85px;
+}
+
+.version-logo {
+    padding: 10px;
+    width: 100%;
+}
+
+.version-logo ion-icon {
+    margin-bottom: -2px;
+}
+
+.left-five {
+    margin-left: 5px;
+}
+
+.i-userlist li a {
+    display: block;
 }

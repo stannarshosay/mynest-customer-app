@@ -1,0 +1,23 @@
+ion-slides {
+    height: 170px;
+}
+
+ion-slides.i-newsfeed {
+    height: auto;
+}
+
+.sl-shareHolder>a {
+    margin-right: 0px;
+}
+
+::ng-deep .mat-menu-panel {
+    min-height: unset!important;
+}
+
+.default-cursor {
+    cursor: default!important;
+}
+
+ion-slide>img {
+    cursor: pointer;
+}

@@ -1,0 +1,31 @@
+.news-skeleton>ion-skeleton-text {
+    margin-bottom: 5px;
+}
+
+.news-skeleton {
+    margin-bottom: 15px;
+}
+
+.image-skeleton {
+    height: 98px;
+    margin-bottom: 10px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+.sl-latestblog .sl-featuredProducts--post__content {
+    padding: 15px 7px;
+    padding-bottom: 5px;
+}
+
+.sl-featuredProducts--post img {
+    height: 100px;
+}
+
+.sl-shareHolder>a {
+    margin-right: 0px;
+}
+
+::ng-deep .mat-menu-panel {
+    min-height: unset!important;
+}

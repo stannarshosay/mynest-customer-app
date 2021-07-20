@@ -1,0 +1,22 @@
+<ion-header id="sidebar-content">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <div class="sl-main-form" fxLayout="row" fxLayout="space-between center">
+            <ion-title>{{title}}</ion-title>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div>
+                    <ion-button size="small" fill="clear" shape="round" (click)="goToSearch()">
+                        <ion-icon slot="icon-only" name="search"></ion-icon>
+                    </ion-button>
+                </div>
+                <div>
+                    <ion-button (click)="locationSelector()" size="small" fill="clear" shape="round">
+                        <ion-icon slot="icon-only" name="location"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-header>

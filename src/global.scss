@@ -9,18 +9,132 @@
  * https://ionicframework.com/docs/layout/global-stylesheets
  */
 
+
 /* Core CSS required for Ionic components to work properly */
+
 @import "~@ionic/angular/css/core.css";
 
 /* Basic CSS for apps built with Ionic */
+
 @import "~@ionic/angular/css/normalize.css";
 @import "~@ionic/angular/css/structure.css";
 @import "~@ionic/angular/css/typography.css";
 @import '~@ionic/angular/css/display.css';
 
 /* Optional CSS utils that can be commented out */
+
 @import "~@ionic/angular/css/padding.css";
 @import "~@ionic/angular/css/float-elements.css";
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+@font-face {
+    font-family: mynest-font;
+    src: url("assets/fonts/Montserrat-Regular.ttf") format("truetype");
+}
+
+*:not([class^="ti-"]):not([class^="fa"]):not([class^="lnr"]):not(.material-icons) {
+    font-family: mynest-font !important;
+}
+
+.ripple-parent {
+    position: relative;
+    overflow: hidden;
+}
+
+
+/*pagination*/
+
+.ngx-pagination .pagination-next a::after,
+.ngx-pagination .pagination-next.disabled::after {
+    margin-left: 0px!important;
+}
+
+.ngx-pagination .pagination-previous a::before,
+.ngx-pagination .pagination-previous.disabled::before {
+    margin-right: 0px!important;
+}
+
+.ngx-pagination li {
+    margin-right: 0.5rem!important;
+    min-width: 44px!important;
+    height: 44px!important;
+    padding: 0!important;
+    border: 1px solid #ddd!important;
+    border-radius: 4px!important;
+}
+
+.ngx-pagination li:hover {
+    background-color: #e6e6e6;
+}
+
+.ngx-pagination a,
+.ngx-pagination button {
+    width: 100%!important;
+    height: 100%!important;
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+}
+
+.ngx-pagination .current {
+    display: inline-flex!important;
+    justify-content: center!important;
+    background-color: #039eba!important;
+}
+
+.ngx-pagination .current>span:last-child {
+    align-self: center!important;
+}
+
+.ngx-pagination .disabled {
+    display: inline-flex!important;
+    justify-content: center!important;
+}
+
+.ngx-pagination .pagination-previous.disabled::before,
+.ngx-pagination .pagination-next.disabled::after {
+    align-self: center!important;
+}
+
+.ngx-pagination a:focus,
+.ngx-pagination button:focus {
+    outline: none!important;
+}
+
+.ngx-pagination a:hover,
+.ngx-pagination button:hover {
+    background-color: transparent!important;
+}
+
+.ngx-pagination {
+    display: flex!important;
+    justify-content: center!important;
+    margin-top: 1.2rem!important;
+    margin-bottom: 1.8rem!important;
+}
+
+.ngx-pagination.responsive .small-screen {
+    border: none!important;
+}
+
+.modal-wrapper {
+    background: transparent !important;
+}
+
+
+/* mat-progress-bar */
+
+.mat-progress-bar {
+    margin-top: 10px;
+}
+
+.mat-progress-bar .mat-progress-bar-fill::after {
+    background-color: #039eba;
+}
+
+.login-otp-modal {
+    --height: 60%;
+    align-items: flex-end;
+    --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
+}

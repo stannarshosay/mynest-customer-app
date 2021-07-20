@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-button size="small" fill="clear" shape="round" (click)="dismiss(false)">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>{{vendor.companyName}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <h1>Are you sure you want to report this vendor?</h1>
+    <div class="form-group">
+        <textarea class="form-control sl-form-control" [formControl]="reason" type="text" placeholder="Reason*"></textarea>
+    </div>
+    <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-3 d-block" *ngIf="isReporting"></ion-spinner>
+
+
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <div class="sl-loginfooterinfo" fxLayout="row nowrap" fxLayoutAlign="space-around center">
+            <div matRipple [matRippleColor]="color" *ngIf="!isReporting">
+                <button mat-button class="btn sl-btn sl-btn-active fixed-width" (click)="dismiss(false)">No</button>
+            </div>
+            <div matRipple [matRippleColor]="color" *ngIf="!isReporting">
+                <button mat-button (click)="reportVendor()" class="btn sl-btn sl-btn-outline fixed-width">Yes</button>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,186 @@
+<ion-header translucent>
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+            <ion-title>Profile</ion-title>
+        </ion-buttons>
+        <ion-label slot="end" class="ion-padding pt-0 pb-0">
+            <a href="javascript:void(0);" (click)="toggleWishlist($event)" class="sl-like" [class.liked]="provider.wishListed"><i class="fas fa-heart"></i></a>
+        </ion-label>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <div class="sl-inner-banner provider-inner-container" *ngIf="!isGettingGalleryImages">
+        <!-- IMG SLIDER START -->
+        <ion-slides pager="true" [options]="slideOpts" *ngIf="!isGettingGalleryImages">
+            <ion-slide *ngFor="let image of imageGallery;let i=index">
+                <div class="sl-img">
+                    <figure>
+                        <a class="sl-prettyPhotoImg" (click)="openGallery(i)" href="javascript:void(0)">
+                            <img [src]="image.thumb" alt="Image Description">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+                          <path id="Rectangle_1_copy" data-name="Rectangle 1 copy" class="cls-1" d="M26.156,2h1.688V52H26.156V2ZM2,26.156H52v1.688H2V26.156Z" transform="translate(-2 -2)"/>
+                      </svg>
+                        </a>
+                    </figure>
+                </div>
+            </ion-slide>
+        </ion-slides>
+        <!-- IMG SLIDER END -->
+    </div>
+    <!-- INNER BANNER END -->
+    <!-- MAIN START -->
+    <main class="sl-main pt-0 pb-0">
+        <div class="container" *ngIf="!isGettingGalleryImages">
+            <div class="sl-appointment">
+                <div class="sl-appointment__img">
+                    <img src="https://mynestonline.com/collection/images/company-logo/{{getImagePath(provider.logo)}}" alt="Image Description">
+                </div>
+                <div class="sl-appointment__content">
+                    <div class="sl-slider__tags">
+                        <a href="javascript:void(0);" class="sl-bg-gold" *ngIf="provider.premium">Premium</a>
+                        <a href="javascript:void(0);" class="sl-bg-green" *ngIf="provider.verified">Verified</a>
+                    </div>
+                    <h3 class="provider-head">{{provider.companyName}}</h3>
+                    <div class="sl-appointment__feature" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10">
+                        <div class="sl-appointment__location">
+                            <em><i class="ti-location-pin"></i>&nbsp;<a class="mobile-font" (click) ="$event.stopPropagation()" href="https://www.google.com/maps/search/?api=1&query={{provider.latitude}},{{provider.longitude}}" target="_blank">{{provider.location}}</a></em>
+                        </div>
+                        <div class="sl-detail__date">
+                            <em><i class="ti-stamp"></i><span class="mobile-font">&nbsp;GST Number: {{provider.gstNumber}}</span></em>
+                        </div>
+                        <div class="sl-detail__report">
+                            <div class="sl-shareHolder">
+                                <a (click)="$event.stopPropagation()" mat-button [matMenuTriggerFor]="belowMenu" class="slShareHolder"><i class="ti-sharethis"></i></a>
+                                <mat-menu #belowMenu="matMenu" yPosition="above" xPosition="before">
+                                    <div class="sl-shareHolder__option">
+                                        <ul class="sl-socialicons">
+                                            <li class="sl-facebook">
+                                                <a (click)="$event.stopPropagation()" href="https://www.facebook.com/sharer/sharer.php?u={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li class="sl-twitter">
+                                                <a (click)="$event.stopPropagation()" href="https://twitter.com/intent/tweet?url={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li class="sl-rss">
+                                                <a (click)="$event.stopPropagation()" href="https://mail.google.com/mail/?view=cm&fs=1&su={{getEncoded(provider.companyName)}}&body={{getShareLink(provider.vendorId)}}" target="_blank"><i class="far fa-envelope"></i></a>
+                                            </li>
+                                            <li class="sl-linkedin">
+                                                <a (click)="$event.stopPropagation()" href="https://www.linkedin.com/sharing/share-offsite/?url={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                            </li>
+                                            <li class="sl-whatsapp">
+                                                <a (click)="$event.stopPropagation()" href="https://wa.me/?text={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </mat-menu>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sl-main-section pt-0">
+                <div class="row">
+                    <div class="col-lg-8 col-xl-9">
+                        <div class="sl-offerServices">
+                            <div class="sl-title">
+                                <h4>Offered Services</h4>
+                            </div>
+                            <div class="sl-posts">
+                                <div class="mn-tags">
+                                    <span *ngFor="let service of services">{{service.subCategoryName}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="sl-detail">
+                            <div class="sl-detail__date" matRipple [matRippleColor]="color">
+                                <button class="btn sl-btn sl-btn-outline" (click)="checkBrochure(provider.brochureFilePath)"><i class="ti-download"></i>&nbsp;&nbsp;Brochure</button>
+                            </div>
+                        </div>
+                        <div class="sl-aboutFreelance">
+                            <div class="sl-title">
+                                <h4>About</h4>
+                            </div>
+                            <div class="sl-aboutFreelance__description">
+                                <p>{{provider.about}}</p>
+                            </div>
+                        </div>
+                        <div class="sl-aboutFreelance">
+                            <div class="sl-title">
+                                <h4>Connect Us</h4>
+                            </div>
+                            <div class="sl-aboutFreelance__description">
+                                <ul class="sl-contactDetail__brands" fxLayout="row" fxLayoutAlign="center center">
+                                    <li fxLayout="row" fxLayoutAlign="center center" class="sl-facebook fb-round" matRipple [matRippleColor]="color"><a href="javascript:void(0);" (click)="getDetailLink(provider.fbLink)"><i class="fab fa-facebook-f"></i></a></li>
+                                    <li fxLayout="row" fxLayoutAlign="center center" class="whatsapp-round" matRipple [matRippleColor]="color"><a href="https://wa.me/{{provider.whatsappNum}}/?text=Hello" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+                                    <li fxLayout="row" fxLayoutAlign="center center" class="sl-youtube youtube-round" matRipple [matRippleColor]="color"><a href="javascript:void(0);" (click)="getDetailLink(provider.youtubeLink)"><i class="fab fa-youtube"></i></a></li>
+                                    <li fxLayout="row" fxLayoutAlign="center center" class="email-round" matRipple [matRippleColor]="color"><a href="https://mail.google.com/mail/?view=cm&fs=1&to={{provider.email}}" target="_blank"><i class="ti-email"></i></a></li>
+                                    <li fxLayout="row" fxLayoutAlign="center center" class="sl-world-icon world-round" matRipple [matRippleColor]="color"><a href="javascript:void(0);" (click)="getDetailLink(provider.websiteLink)"><i class="ti-world sl-world-icon"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="sl-audioVideoGallery" *ngIf="(provider.youtubeLink)&&(provider.youtubeLink != '')">
+                            <div class="sl-title">
+                                <h4>Video</h4>
+                            </div>
+                            <div class="sl-audioVideoGallery__content">
+                                <figure>
+                                    <a class="sl-video__img" data-rel="prettyPhoto" href="{{provider.youtubeLink}}" target="_blank"><img src="assets/images/service-provider-single/video-gallery/img-02.jpg" alt="Image Description"></a>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="sl-sidebar-ad" (click)="getAdLink()">
+                            <a href="javascript:void(0);" [class.default-cursor]="adLink==null"><img src="https://mynestonline.com/collection/images/vendor-advertisement/{{serviceAd}}" alt="Image Description"></a>
+                        </div>
+                        <div class="sl-aboutFreelance">
+                            <div class="sl-title">
+                                <h4>Find Us</h4>
+                            </div>
+                            <google-map (click)="goToMaps(provider.latitude,provider.longitude)" *ngIf="!isGettingProfileDetails" apiKey="AIzaSyDAht4CA4uUlXg-kv-3sxkWo8xJzyJO2Ss" [markerLat]="provider.latitude" [markerLng]="provider.longitude"></google-map>
+                        </div>
+                        <div class="sl-aboutFreelance pt-3">
+                            <a (click)="reportVendor()" class="report-provider sl-danger"><i class="ti-flag-alt"></i>&nbsp;Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="isGettingGalleryImages" class="container">
+            <div class="news-skeleton">
+                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+            </div>
+            <ion-avatar slot="start">
+                <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+                <h3>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                </p>
+                <p>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </p>
+            </ion-label>
+            <div class="news-skeleton">
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+            </div>
+        </div>
+    </main>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <div class="footer" fxLayout="row" fxLayoutAlign="space-around center">
+            <a class="chat-footer" fxLayout="row" fxLayoutAlign="center center" (click)="goToChatroom($event)" href="javascript:void(0);">
+                <ion-icon name="chatbubble-ellipses"></ion-icon>&nbsp;Chat</a>
+            <a class="call-footer" fxLayout="row" fxLayoutAlign="center center" href="tel:{{provider.mobile}}" target="_blank" href="javascript:void(0);">
+                <ion-icon name="call"></ion-icon>&nbsp;Call</a>
+        </div>
+    </ion-toolbar>
+</ion-footer>

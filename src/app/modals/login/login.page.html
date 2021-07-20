@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-button size="small" fill="clear" shape="round" (click)="dismiss(false,null)">
+                <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>Login</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form class="sl-formtheme sl-formlogin">
+        <img src="assets/images/main-logo.png" class="logo">
+        <fieldset>
+            <div class="form-group">
+                <input type="text" [formControl]="username" name="username" class="form-control sl-form-control" placeholder="Username*">
+            </div>
+            <div class="form-group">
+                <input type="password" [formControl]="password" class="form-control sl-form-control" placeholder="Password*">
+            </div>
+            <div class="form-group sl-btnarea">
+                <div matRipple [matRippleColor]="color">
+                    <a (click)="login()" href="javascript:void(0);" class="btn sl-btn sl-btn-outline" [hidden]="!isLogging">Login</a>
+                </div>
+                <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-2" [hidden]="isLogging"></ion-spinner>
+            </div>
+        </fieldset>
+    </form>
+    <span class="sl-optionsbar"><em>or</em></span>
+    <div class="sl-loginicon">
+        <ul>
+            <li>
+                <div matRipple [matRippleColor]="color">
+                    <a href="javascript:void(0);" (click)="loginWithOtp()" class="sl-otpbox"><i class="fas fa-mobile-alt"></i>Via mobile otp</a>
+                </div>
+            </li>
+            <li>
+                <div matRipple [matRippleColor]="color">
+                    <a href="javascript:void(0);" (click)="fbLogin()" class="sl-facebookbox"><i class="fab fa-facebook-f"></i>Via facebook</a>
+                </div>
+            </li>
+            <li>
+                <div matRipple [matRippleColor]="color">
+                    <a href="javascript:void(0);" (click)="googleSignup()" class="sl-googlebox"><i class="fab fa-google"></i>Via google</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="sl-popup-footerterms">
+        <span>By signing in  you agree to these <a href="legalprivacy.html"> Terms &amp; Conditions</a> &amp; consent to<a href="legalprivacy.html"> Cookie Policy &amp; Privacy Policy.</a></span>
+    </div>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <div class="sl-loginfooterinfo" fxLayout="row nowrap" fxLayoutAlign="space-around center">
+            <a href="javascript:void(0);" fxFlex="50" (click)="signup()"><em>Not a member?</em> Signup</a>
+            <a href="javascript:void(0);" fxFlex="50" class="sl-forgot-password" (click)="forgotPassword()">Forgot password?</a>
+        </div>
+    </ion-toolbar>
+</ion-footer>

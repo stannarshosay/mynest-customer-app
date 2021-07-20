@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1029253774010",
+    "project_id": "digital-proton-307714",
+    "storage_bucket": "digital-proton-307714.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1029253774010:android:33a490e4837832280ae083",
+        "android_client_info": {
+          "package_name": "ionic.mynest.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1029253774010-nvlbus2kf55vd1vc3cktpthu7v4iiltn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ionic.mynest.customer",
+            "certificate_hash": "3819fa4de11702c00b35a96ab6c6059caed3954c"
+          }
+        },
+        {
+          "client_id": "1029253774010-6q5hil6ctiu6j2ip30p1ksnv009ep9im.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAQ3rp_x3PxSb7P44H1TJ9aVjMM8mB6H8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1029253774010-6q5hil6ctiu6j2ip30p1ksnv009ep9im.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

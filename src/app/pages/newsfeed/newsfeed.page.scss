@@ -1,0 +1,29 @@
+.news-skeleton>ion-skeleton-text {
+    margin-bottom: 5px;
+}
+
+.news-skeleton {
+    margin-bottom: 15px;
+}
+
+.image-skeleton {
+    height: 200px;
+    margin-bottom: 25px!important;
+    border-radius: 6px;
+}
+
+.sl-blogsingle__img img {
+    height: 200px;
+}
+
+.sl-shareHolder>a {
+    margin-right: 0px;
+}
+
+::ng-deep .mat-menu-panel {
+    min-height: unset!important;
+}
+
+.sl-blogsinglehead__blogpostmeta {
+    margin: 0px!important;
+}

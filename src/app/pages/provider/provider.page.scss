@@ -1,0 +1,96 @@
+ion-toolbar {
+    --background-color: transparent;
+    --ion-color-base: transparent !important;
+}
+
+.sl-img figure {
+    margin: 0px!important;
+}
+
+.sl-audioVideoGallery__content figure {
+    margin: 0px!important;
+}
+
+.sl-main {
+    overflow: visible;
+    z-index: 9;
+}
+
+.sl-slider__tags {
+    margin-top: 0px!important;
+}
+
+.mobile-font {
+    font-size: 12px;
+}
+
+.mn-tags {
+    white-space: unset!important;
+}
+
+.mn-tags>span {
+    font-size: 12px;
+}
+
+.footer {
+    padding: 0px;
+    width: 100%;
+}
+
+.footer a {
+    width: 100%;
+    height: 56px;
+    background-color: #039eba;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.call-footer {
+    background-color: green!important;
+}
+
+.news-skeleton>ion-skeleton-text {
+    margin-bottom: 5px;
+}
+
+.news-skeleton {
+    margin-bottom: 15px;
+}
+
+.image-skeleton {
+    height: 200px;
+    margin-bottom: 25px!important;
+}
+
+.sl-blogsingle__img img {
+    height: 200px;
+}
+
+google-map {
+    display: block;
+    width: 100%;
+    height: 250px;
+}
+
+.sl-like {
+    color: lightgray;
+    font-size: 20px;
+}
+
+::ng-deep .mat-menu-panel {
+    min-height: unset!important;
+}
+
+a.report-provider {
+    color: red!important;
+    cursor: pointer;
+}
+
+.sl-sidebar-ad {
+    cursor: pointer;
+}
+
+.default-cursor {
+    cursor: default;
+}

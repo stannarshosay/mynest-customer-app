@@ -1,0 +1,180 @@
+<ion-header>
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+
+        <ion-title>Requirements</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <main class="sl-main p-0">
+        <!-- SERVICE PROVIDER START -->
+        <section class="sl-main-section p-0">
+            <div *ngIf="segment=='active'" class="animate__animated animate__slideInUp animate__fast">
+                <div *ngIf="!isGettingActiveRequirements">
+                    <div *ngIf="!isGettingActiveRequirementsSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
+                        <img src="assets/images/vendor/no-results.png">
+                        <p>No active requirements.</p>
+                    </div>
+                    <mat-accordion *ngIf="!isGettingActiveRequirements">
+                        <mat-expansion-panel *ngFor="let requirement of activeRequirements" class="req-expansion-panel">
+                            <mat-expansion-panel-header>
+                                <div class="sl-newAppointments__userDetail">
+                                    <div class="sl-newAppointments__userText">
+                                        <h5>{{requirement.categoryId}}</h5>
+                                        <div *ngIf="requirement.subCategoryName" class="element-subcategory"><small>{{requirement.subCategoryName}}</small></div>
+                                        <p>{{requirement.createdDate}}</p>
+                                    </div>
+                                </div>
+                                <div class="sl-newAppointments__services">
+                                    <div class="sl-newAppointments__services--description p-0 m-0">
+                                        <h6>Providers from</h6>
+                                        <ul>
+                                            <li *ngFor="let loc of requirement.locations">
+                                                <p>{{loc}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div matRipple [matRippleColor]="color" class="pt-2 pb-2">
+                                    <a href="javascript:void(0);" (click)="viewAllQoutes(requirement.requirementId,$event)" class="btn sl-btn sl-btn-outline">View qoutes</a>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="requirement-content" fxLayout="row" fxLayoutAlign="start">
+                                <img fxFlex="50" *ngIf="(requirement.picName)&&(requirement.picName.trim()!='')" src="https://mynestonline.com/collection/images/requirements/{{requirement.picName}}">
+                                <div class="p-5" [attr.fxFlex]="((requirement.picName)&&(requirement.picName.trim()!=''))?50:100">
+                                    <div class="requirement-contact" fxLayout="row" fxLayoutAlign="center center" *ngIf="(requirement.contact)&&(requirement.contact!='')">
+                                        <mat-icon>phone</mat-icon>
+                                        <span class="ml-1">{{requirement.contact}}</span>
+                                    </div>
+                                    <p>&ldquo;{{requirement.description}}&rdquo;</p>
+                                </div>
+                            </div>
+                            <mat-action-row>
+                                <div matRipple [matRippleColor]="color">
+                                    <a href="javascript:void(0);" (click)="closeRequirement(requirement.requirementId)" class="btn sl-btn sl-btn-danger">Close</a>
+                                </div>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+                </div>
+                <div *ngIf="isGettingActiveRequirements" class="ion-padding">
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="segment=='inactive'" class="animate__animated animate__slideInUp animate__fast">
+                <div *ngIf="!isGettingClosedrequirements">
+                    <div *ngIf="!isGettingClosedrequirementsSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
+                        <img src="assets/images/vendor/no-results.png">
+                        <p>No closed requirements.</p>
+                    </div>
+                    <mat-accordion *ngIf="!isGettingClosedrequirements">
+                        <mat-expansion-panel *ngFor="let requirement of closedRequirements | paginate:config" class="req-expansion-panel">
+                            <mat-expansion-panel-header>
+                                <div class="sl-newAppointments__userDetail">
+                                    <div class="sl-newAppointments__userText">
+                                        <h5>{{requirement.categoryId}}</h5>
+                                        <div *ngIf="requirement.subCategoryName" class="element-subcategory"><small>{{requirement.subCategoryName}}</small></div>
+                                        <p>{{requirement.createdDate}}</p>
+                                    </div>
+                                </div>
+                                <div class="sl-newAppointments__services">
+                                    <div class="sl-newAppointments__services--description">
+                                        <h6>Preffered locations</h6>
+                                        <ul>
+                                            <li *ngFor="let loc of requirement.locations">
+                                                <p>{{loc}}</p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div matRipple [matRippleColor]="color" class="pt-2 pb-2">
+                                    <a href="javascript:void(0);" (click)="viewAllQoutes(requirement.requirementId,$event)" class="btn sl-btn sl-btn-outline">View quotes</a>
+                                </div>
+                            </mat-expansion-panel-header>
+                            <div class="requirement-content" fxLayout="row" fxLayoutAlign="start">
+                                <img fxFlex="50" *ngIf="(requirement.picName)&&(requirement.picName.trim()!='')" src="https://mynestonline.com/collection/images/requirements/{{requirement.picName}}">
+                                <div class="p-3" [attr.fxFlex]="((requirement.picName)&&(requirement.picName.trim()!=''))?50:100">
+                                    <div class="requirement-contact" fxLayout="row" fxLayoutAlign="center center" *ngIf="(requirement.contact)&&(requirement.contact!='')">
+                                        <mat-icon>phone</mat-icon>
+                                        <span class="ml-1">{{requirement.contact}}</span>
+                                    </div>
+                                    <p>&ldquo;{{requirement.description}}&rdquo;</p>
+                                </div>
+                            </div>
+                            <mat-action-row fxLayout="column">
+                                <h6>Closing note</h6>
+                                <p>{{requirement.closingNote}}</p>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+
+                    </mat-accordion>
+                    <div class="row">
+                        <div class="col-12">
+                            <pagination-controls (pageChange)="pageChange($event)" autoHide="true" responsive="true" previousLabel="" nextLabel=""></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isGettingClosedrequirements" class="ion-padding">
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 25%;"></ion-skeleton-text>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</ion-content>
+<ion-footer>
+    <ion-toolbar>
+        <ion-segment [(ngModel)]="segment">
+            <ion-segment-button value="active" checked>
+                <ion-label>Active</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="inactive">
+                <ion-label>Closed</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
+</ion-footer>

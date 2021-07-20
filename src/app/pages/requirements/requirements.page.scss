@@ -1,0 +1,55 @@
+@import "~animate.css/animate.min.css";
+.mat-tab-group.mat-primary .mat-ink-bar,
+.mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #039eba!important;
+}
+
+.mat-expansion-panel {
+    margin: 10px!important;
+    border-radius: 6px!important;
+}
+
+.mat-tab-label {
+    font-size: 24px!important;
+    font-weight: bold!important;
+    color: black!important;
+}
+
+.mat-tab-label.mat-tab-label-active {
+    opacity: 1;
+}
+
+.mat-expansion-panel-header {
+    height: auto!important;
+    padding: 0px 10px;
+}
+
+.mat-content {
+    min-height: 100px!important;
+    padding: 10px!important;
+    align-items: center!important;
+}
+
+.news-skeleton>ion-skeleton-text {
+    margin-bottom: 5px;
+}
+
+.news-skeleton {
+    margin-bottom: 15px;
+}
+
+.image-skeleton {
+    height: 150px;
+    margin-bottom: 5px!important;
+    border-radius: 6px;
+}
+
+.element-subcategory {
+    padding: 0px 8px;
+    display: inline-block;
+    background-color: darkgray;
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    font-size: 12px;
+}

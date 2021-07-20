@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home/tabs/chatroom"></ion-back-button>
+        </ion-buttons>
+        <ion-avatar slot="start" class="mr-2 ml-0 mt-2 mb-2" *ngIf="!contactData">
+            <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label *ngIf="!contactData">
+            <h3>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </h3>
+            <p>
+                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+            </p>
+        </ion-label>
+        <div class="sl-messageUser__heading" *ngIf="contactData">
+            <div class="sl-messageUser__heading--logo">
+                <img src="https://mynestonline.com/collection/images/company-logo/{{getImagePath(contactData.profilePic)}}" alt="Image Description">
+            </div>
+            <div class="sl-messageUser--text">
+                <h5>{{contactData.vendorName}}</h5>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-header>
+<ion-content #chatbox>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <main class="sl-main pt-0 pb-0">
+        <div class="sl-main-section pt-0 pb-0">
+            <div class="sl-dashboardbox__content">
+                <div class="sl-messageUser">
+                    <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-3 d-block" *ngIf="isGettingMessages"></ion-spinner>
+                    <div class="no-message" *ngIf="showNoMessages">
+                        <img src="assets/images/inbox/no-message.png">
+                        <p class="text-center">No messages yet, start converstation!</p>
+                    </div>
+                    <div class="sl-messageUser__area">
+                        <div [class.chat-quote]="message.messageType == 'FILE'" [class.sl-messageUser__area--left]="message.recipientId == customerId" [class.sl-messageUser__area--right]="message.recipientId != customerId" *ngFor="let message of messages">
+                            <p *ngIf="message.messageType == 'TEXT'">{{message.content}}</p>
+                            <p *ngIf="message.messageType == 'FILE'" matTooltip="click to download" (click)="downloadChatQuote(message.content)"><i class="ti-file"></i>&nbsp;&nbsp;{{message.content}}</p>
+                            <span>{{getBeautifiedDate(message.sentTime)}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</ion-content>
+<ion-footer *ngIf="!isGettingMessages">
+    <ion-toolbar>
+        <div class="sl-emoji">
+            <div class="sl-input-group">
+                <input class="form-control sl-form-control sl-prepend" [formControl]="messageControl" type="text" placeholder="Type message here">
+                <a href="javascript:void(0);" (click)="sendMessage()" class="btn sl-btn sl-btn-active sl-append"><i class="lnr lnr-arrow-right"></i></a>
+            </div>
+        </div>
+    </ion-toolbar>
+</ion-footer>

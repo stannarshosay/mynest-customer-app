@@ -1,0 +1,122 @@
+<app-header title="Wishlist"></app-header>
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <main class="sl-main">
+        <section class="sl-main-section p-0">
+            <div class="container">
+                <div class="sl-serviceProvider">
+                    <div class="sl-serviceProvider__content">
+                        <div *ngIf="!isProvidersDataSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
+                            <img src="assets/images/vendor/no-results.png">
+                            <p>Sorry, No vendors wishlisted.<br>Please try a different criteria</p>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-around center" [hidden]="!isProvidersLoaded">
+                            <div *ngFor="let provider of providers | paginate:config" class="sl-slider" [routerLink]="['/provider/'+provider.vendorId]" routerDirection="forward" matRipple [matRippleColor]="darkColor" [matRippleRadius]="100">
+                                <figure>
+                                    <a href="javascript:void(0);"><img src="https://mynestonline.com/collection/images/company-profile/{{getImagePath(provider.profilePic)}}" alt="Image Description"></a>
+                                    <a href="javascript:void(0);"><img style="width:48px;height:48px;" src="https://mynestonline.com/collection/images/company-logo/{{getImagePath(provider.logo)}}" alt="Image Description"></a>
+                                    <a href="javascript:void(0);" (click)="toggleWishlist(provider,$event)" class="sl-like" [class.liked]="provider.wishListed"><i class="far fa-heart"></i></a>
+                                </figure>
+                                <div class="sl-slider__content">
+                                    <div class="sl-slider__header">
+                                        <div class="sl-slider__tags">
+                                            <a href="javascript:void(0);" class="sl-bg-gold" *ngIf="provider.premium">Premium</a>
+                                            <a href="javascript:void(0);" class="sl-bg-green" *ngIf="provider.verified">Verified</a>
+                                            <div class="mn-contact">
+                                                <a (click)="$event.stopPropagation()" href="https://wa.me/{{provider.whatsappNum}}/?text=Hello" target="_blank"><img src="assets/images/icons/whatsapp.png"></a>
+                                                <a (click)="goToChatroom(provider,$event)" href="javascript:void(0);"><img src="assets/images/icons/chatblu.png"></a>
+                                            </div>
+                                        </div>
+                                        <h5 class="mt-1"><a href="javascript:void(0);">{{provider.companyName}}</a></h5>
+                                    </div>
+                                    <div class="sl-slider__footer">
+                                        <div class="mn-tags">
+                                            <span *ngFor="let tags of provider.subCategories">{{tags}}</span>
+                                        </div>
+                                        <div class="mn-footer-content">
+                                            <em><a (click) ="$event.stopPropagation()" href="https://www.google.com/maps/search/?api=1&query={{provider.latitude}},{{provider.longitude}}" target="_blank"><i class="ti-location-pin"></i>&nbsp;{{provider.location}}</a></em>
+                                            <div class="sl-shareHolder">
+                                                <a (click)="$event.stopPropagation()" mat-button [matMenuTriggerFor]="belowMenu" class="slShareHolder"><i class="ti-sharethis"></i></a>
+                                                <mat-menu #belowMenu="matMenu" yPosition="above" xPosition="before">
+                                                    <div class="sl-shareHolder__option">
+                                                        <ul class="sl-socialicons">
+                                                            <li class="sl-facebook">
+                                                                <a (click)="$event.stopPropagation()" href="https://www.facebook.com/sharer/sharer.php?u={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                            </li>
+                                                            <li class="sl-twitter">
+                                                                <a (click)="$event.stopPropagation()" href="https://twitter.com/intent/tweet?url={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                                            </li>
+                                                            <li class="sl-rss">
+                                                                <a (click)="$event.stopPropagation()" href="https://mail.google.com/mail/?view=cm&fs=1&su={{getEncoded(provider.companyName)}}&body={{getShareLink(provider.vendorId)}}" target="_blank"><i class="far fa-envelope"></i></a>
+                                                            </li>
+                                                            <li class="sl-linkedin">
+                                                                <a (click)="$event.stopPropagation()" href="https://www.linkedin.com/sharing/share-offsite/?url={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                            </li>
+                                                            <li class="sl-whatsapp">
+                                                                <a (click)="$event.stopPropagation()" href="https://wa.me/?text={{getShareLink(provider.vendorId)}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </mat-menu>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div fxLayout="row wrap" fxLayoutAlign="space-between center" [hidden]="isProvidersLoaded">
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+                            <div class="news-skeleton" fxFlex="47">
+                                <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                            </div>
+
+                        </div>
+                        <div class="col-12">
+                            <pagination-controls (pageChange)="pageChange($event)" autoHide="true" responsive="true" previousLabel="" nextLabel=""></pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</ion-content>

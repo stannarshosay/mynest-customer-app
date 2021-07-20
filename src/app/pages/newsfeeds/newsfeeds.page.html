@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/home"></ion-back-button>
+        </ion-buttons>
+
+        <ion-title>News Feeds</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    <main class="sl-main">
+        <div class="container">
+            <div class="sl-serviceProvider sl-serviceProvider-blog">
+                <div class="row" [hidden]="!isNewsfeedsLoaded" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div *ngIf="!isNewsfeedsDataSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
+                        <img src="assets/images/vendor/no-results.png">
+                        <p>Sorry, no newsfeeds available currently.</p>
+                    </div>
+                    <div *ngFor="let news of newsfeeds | paginate:config" fxFlex="50">
+                        <div class="sl-latestblog sl-featuredProducts--post" [routerLink]="['/newsfeed/'+news.newsId]" routerDirection="forward" matRipple [matRippleColor]="darkColor" [matRippleRadius]="100">
+                            <figure>
+                                <img src="https://mynestonline.com/collection/images/newsfeed/{{getImagePath(news.imagePath)}}" alt="Image Description">
+                            </figure>
+                            <div class="sl-featuredProducts--post__content">
+                                <div class="sl-featuredProducts--post__title">
+                                    <h5>{{news.title}}</h5>
+                                    <div fxLayout="row nowrap" fxLayoutAlign="space-between center">
+                                        <time>{{getBeautifiedDate(news.createdDate)}}</time>
+                                        <div class="sl-shareHolder">
+                                            <a (click)="$event.stopPropagation()" mat-button [matMenuTriggerFor]="belowMenu" class="slShareHolder"><i class="ti-sharethis"></i></a>
+                                            <mat-menu #belowMenu="matMenu" yPosition="above" xPosition="before">
+                                                <div class="sl-shareHolder__option">
+                                                    <ul class="sl-socialicons">
+                                                        <li class="sl-facebook">
+                                                            <a (click)="$event.stopPropagation()" href="https://www.facebook.com/sharer/sharer.php?u={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                                                        </li>
+                                                        <li class="sl-twitter">
+                                                            <a (click)="$event.stopPropagation()" href="https://twitter.com/intent/tweet?url={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-twitter"></i></a>
+                                                        </li>
+                                                        <li class="sl-rss">
+                                                            <a (click)="$event.stopPropagation()" href="https://mail.google.com/mail/?view=cm&fs=1&su={{getEncoded(news.title)}}&body={{getShareLink(news.newsId)}}" target="_blank"><i class="far fa-envelope"></i></a>
+                                                        </li>
+                                                        <li class="sl-linkedin">
+                                                            <a (click)="$event.stopPropagation()" href="https://www.linkedin.com/sharing/share-offsite/?url={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                                                        </li>
+                                                        <li class="sl-whatsapp">
+                                                            <a (click)="$event.stopPropagation()" href="https://wa.me/?text={{getShareLink(news.newsId)}}" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </mat-menu>
+                                        </div>
+                                    </div>
+                                    <div class="sl-description">
+                                        <p class="mn-news-p">{{checkLength(news.description)}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div [hidden]="isNewsfeedsLoaded" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+                    <div class="news-skeleton" fxFlex="47">
+                        <ion-skeleton-text animated style="width: 100%" class="image-skeleton"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                        <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                    </div>
+
+                </div>
+                <div class="col-12">
+                    <pagination-controls (pageChange)="pageChange($event)" autoHide="true" responsive="true" previousLabel="" nextLabel=""></pagination-controls>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</ion-content>

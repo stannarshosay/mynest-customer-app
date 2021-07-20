@@ -1,0 +1,72 @@
+<app-header title="Post Requirement"></app-header>
+
+<ion-content>
+    <main class="sl-main p-0">
+        <!-- SERVICE PROVIDER START -->
+        <section class="sl-main-section p-small">
+            <div class="container">
+                <div class="sl-serviceProvider">
+                    <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-3 d-block" *ngIf="isGettingCategoryAndLocations"></ion-spinner>
+                    <div class="sl-dashboardbox__content" *ngIf="!isGettingCategoryAndLocations">
+                        <form class="sl-form sl-manageServices" [formGroup]="postRequirementForm" #formDirective="ngForm">
+                            <fieldset>
+                                <div class="sl-form__wrap">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Category</mat-label>
+                                        <mat-select formControlName="categoryId">
+                                            <mat-option value="{{category.categoryId}}" *ngFor="let category of categories">{{category.categoryName}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <mat-form-field class="subcategory-drop" appearance="outline" [matTooltip]="isGettingSubcategories?'subcategories not fetched, if selected category please wait':'choose subcategory'">
+                                        <mat-label>Subcategory</mat-label>
+                                        <mat-select formControlName="subCategoryId">
+                                            <mat-option>All</mat-option>
+                                            <mat-option value="{{sub.subCategoryId}}" *ngFor="let sub of subCategories">{{sub.subCategoryName}}</mat-option>
+                                        </mat-select>
+                                        <mat-hint>Optional subcategory for selected category can be added, if left unselected requirement is posted respective to category similar to selection all</mat-hint>
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Preferred location</mat-label>
+                                        <mat-select formControlName="locations" multiple>
+                                            <mat-option value="{{location.district}}" *ngFor="let location of locations">{{location.district}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <div class="form-group">
+                                        <textarea class="form-control sl-form-control" formControlName="description" type="text" placeholder="Description*"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="sl-checkbox">
+                                            <input id="terms2" #contactCheckbox type="checkbox" name="category" (change)="toggleShowContact($event)">
+                                            <label for="terms2">
+                                        <span>Do you want to share contact info?</span>
+                                    </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" *ngIf="showContact">
+                                        <input class="form-control sl-form-control" formControlName="contact" type="text" placeholder="Contact">
+                                    </div>
+                                    <br><br><br>
+                                    <div class="form-group mn-uploader">
+                                        <input class="form-control sl-form-control" (change)="onImageSelect($event,imageFileInput)" type="file" hidden #imageFileInput accept="image/*">
+                                        <div matRipple [matRippleColor]="color">
+                                            <button [disabled]="isPosting" class="btn sl-btn sl-btn-active" (click)="imageFileInput.click()">Choose Image</button>
+                                        </div>
+                                        <img *ngFor='let url of imagePreview' [src]="url" height="150" width="200px" style="margin: 3px;">
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div *ngIf="!isGettingCategoryAndLocations">
+                        <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-3 d-block" *ngIf="isPosting"></ion-spinner>
+                        <div matRipple [matRippleColor]="color">
+                            <button class="btn sl-btn sl-btn-outline d-block ml-auto mr-auto" *ngIf="!isPosting" (click)="postRequirement()">Post Requirement</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        <!-- SERVICE PROVIDER END -->
+    </main>
+</ion-content>

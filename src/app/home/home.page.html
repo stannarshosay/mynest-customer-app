@@ -1,20 +1,122 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="start" contentId="sidebar-content" menuId="sidebar-menu" persistent="true">
+    <ion-header>
+        <ion-toolbar translucent>
+            <div (click)="openLoginDialog()" class="p-2" fxLayout="row" fxLayoutAlign="start center">
+                <ion-avatar>
+                    <img src="https://mynestonline.com/collection/images/customer-profile/{{customerProfile}}" alt="Image Description" class="i-user-profile">
+                </ion-avatar>
+                <span class="sl-user__description"><em class="d-block">Hello!</em>{{username}}</span>
+            </div>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ul *ngIf="isLoggedIn" class="i-userlist">
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/profile-settings" routerDirection="forward">
+                    <ion-icon name="settings"></ion-icon><span>Profile Settings</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/requirements" routerDirection="forward">
+                    <ion-icon name="albums"></ion-icon><span>My Requirements</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/home/tabs/chatroom">
+                    <ion-icon name="chatbubble-ellipses"></ion-icon><span>Messages</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/home/tabs/wishlist">
+                    <ion-icon name="heart"></ion-icon><span>Wishlist</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/categories" routerDirection="forward">
+                    <ion-icon name="apps"></ion-icon><span>Categories</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/newsfeeds" routerDirection="forward">
+                    <ion-icon name="megaphone"></ion-icon><span>News Feeds</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/faq" routerDirection="forward">
+                    <ion-icon name="help"></ion-icon><span>FAQ</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="logout()">
+                    <ion-icon name="log-out"></ion-icon><span>Logout</span>
+                </a>
+            </li>
+        </ul>
+        <ul *ngIf="!isLoggedIn" class="i-userlist">
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/categories" routerDirection="forward">
+                    <ion-icon name="apps"></ion-icon><span>Categories</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/newsfeeds" routerDirection="forward">
+                    <ion-icon name="megaphone"></ion-icon><span>News feeds</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="closeMenu()" routerLink="/faq" routerDirection="forward">
+                    <ion-icon name="help"></ion-icon><span>FAQ</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="openLoginDialog()">
+                    <ion-icon name="log-in"></ion-icon><span>Login</span>
+                </a>
+            </li>
+            <li matRipple [matRippleColor]="darkColor">
+                <a href="javascript:void(0);" (click)="openSignup()">
+                    <ion-icon name="person-add"></ion-icon><span>Register</span>
+                </a>
+            </li>
+        </ul>
+    </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <div class="version-logo">
+                <img src="assets/images/loader.png" alt="loader img">
+                <small class="d-block left-five">v1.1 © 2021. All Rights Reserved</small>
+                <small class="d-block left-five">crafted with <ion-icon name="heart" color="danger"></ion-icon> by<a target="_blank" href="https://www.amaeka.com/"> Amaeka Technologies</a></small>
+            </div>
+        </ion-toolbar>
+    </ion-footer>
+</ion-menu>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="landing">
+            <ion-icon name="home"></ion-icon>
+            <ion-label>Home</ion-label>
+        </ion-tab-button>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
-</ion-content>
+        <ion-tab-button tab="notifications">
+            <ion-icon name="notifications"></ion-icon>
+            <ion-label>Notifications</ion-label>
+            <ion-badge *ngIf="notificationCount">{{notificationCount}}</ion-badge>
+        </ion-tab-button>
+        <ion-tab-button tab="post-requirement">
+            <span class="mn-icon add"></span>
+            <ion-label>Requirement</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="chatroom">
+            <ion-icon name="chatbubble-ellipses"></ion-icon>
+            <ion-label>Messages</ion-label>
+            <ion-badge *ngIf="messageCount">{{messageCount}}</ion-badge>
+        </ion-tab-button>
+
+        <ion-tab-button tab="wishlist">
+            <ion-icon name="heart"></ion-icon>
+            <ion-label>Wishlist</ion-label>
+            <ion-badge *ngIf="wishlistCount">{{wishlistCount}}</ion-badge>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>

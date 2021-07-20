@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
+        <ion-buttons slot="start">
+            <ion-button size="small" fill="clear" shape="round" (click)="dismiss(false,null)">
+                <ion-icon color="danger" slot="icon-only" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title>{{title}}</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <form class="sl-formtheme sl-formlogin">
+        <fieldset>
+            <div class="form-group" [formGroup]="mobileForm" *ngIf="!isSendOtp">
+                <input type="text" formControlName="mobile" name="mobile" class="form-control sl-form-control" placeholder="Mobile number*">
+                <mat-error *ngIf="(!mobileForm.get('mobile').valid)&&(isSubmitted)">Mobile number is invalid</mat-error>
+            </div>
+            <ng-otp-input fxLayout="row" fxLayoutAlign="center center" *ngIf="isSendOtp" (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+            <p *ngIf="isSendOtp" class="mt-3 text-center"><span class="text-muted">Not recieved otp?</span>&nbsp;<a href="javascript:void(0);" (click)="sendOtp()">resend</a></p>
+            <div class="form-group sl-btnarea">
+                <div matRipple [matRippleColor]="color" *ngIf="!isSendOtp">
+                    <a (click)="sendOtp()" href="javascript:void(0);" class="btn sl-btn sl-btn-outline" *ngIf="!isProcessing">Send Otp</a>
+                </div>
+                <div matRipple [matRippleColor]="color" *ngIf="isSendOtp">
+                    <a (click)="verifyLogin()" href="javascript:void(0);" class="btn sl-btn sl-btn-outline" *ngIf="!isProcessing">Verify</a>
+                </div>
+                <ion-spinner name="crescent" color="primary" class="ml-auto mr-auto mt-2" *ngIf="isProcessing"></ion-spinner>
+            </div>
+        </fieldset>
+    </form>
+</ion-content>
+<ion-footer class="ion-no-border">
+    <ion-toolbar class="ion-padding">
+        <small class="text-muted text-center d-block">{{infoText}}</small>
+    </ion-toolbar>
+</ion-footer>
