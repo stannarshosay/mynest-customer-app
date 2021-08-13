@@ -10,6 +10,6 @@ export class AdvertisementService {
     private http:HttpClient
   ) { }
   getHomeGalleryImagesByType(adType:string){
-    return this.http.get("https://mynestonline.com/collection/api/admin-ad?adType="+adType);
+    return this.http.get("https://mynestonline.com/collection/api/admin-ad?adType="+adType+"&platform=mobile");
   }
 }

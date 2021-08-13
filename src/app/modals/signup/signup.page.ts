@@ -9,6 +9,7 @@ import '@codetrix-studio/capacitor-google-auth';
 import { Plugins } from '@capacitor/core';
 const { FacebookLogin,Toast } = Plugins;
 import { HttpClient } from '@angular/common/http';
+import { FcmService } from 'src/app/services/fcm.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.page.html',
@@ -35,7 +36,8 @@ export class SignupPage implements OnInit {
     private fb:FormBuilder,
     private snackBar:MatSnackBar,
     private modalCtrl:ModalController,
-    private http:HttpClient
+    private http:HttpClient,
+    private fcmService:FcmService
   ) {
 
    }
@@ -67,6 +69,7 @@ export class SignupPage implements OnInit {
          localStorage.setItem("username",res["data"]["username"]);
          localStorage.setItem("email",this.signupForm.get("email").value);
          this.loginService.hasLoggedIn.next(true);
+         this.fcmService.initPush();
          this.providerService.hasWishlistedOrRemoved.next("data");
          this.chatService.hasRecievedMessage.next("no");
          this.chatService.hasRecievedNotification.next("no");
@@ -105,7 +108,7 @@ export class SignupPage implements OnInit {
   async fbLogin(){
     const FACEBOOK_PERMISSIONS = ['email'];
     const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
-
+    this.showToast("Fb login token" + result.accessToken);
     if (result.accessToken) {
        this.loadUserData(result.accessToken);
     } else {
@@ -122,7 +125,7 @@ export class SignupPage implements OnInit {
   async loadUserData(accessToken:any) {
     const url = `https://graph.facebook.com/${accessToken.userId}?fields=id,name,email&access_token=${accessToken.token}`;
     this.http.get(url).subscribe(res => {
-      // this.showToast("Fb login successfull :"+res['email']);
+      this.showToast("Fb login successfull :"+res['email']);
       this.socialLogin(accessToken.token,res['email'],"FACEBOOK");
     },error=>{
       console.log(error.message);
@@ -143,6 +146,7 @@ export class SignupPage implements OnInit {
           localStorage.setItem("username",res["data"]["username"]);
           localStorage.setItem("email",this.signupForm.get("email").value);
           this.loginService.hasLoggedIn.next(true);
+          this.fcmService.initPush();
           this.providerService.hasWishlistedOrRemoved.next("data");
           this.chatService.hasRecievedMessage.next("no");
           this.chatService.hasRecievedNotification.next("no");

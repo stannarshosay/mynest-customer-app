@@ -9,6 +9,7 @@ import '@codetrix-studio/capacitor-google-auth';
 import { Plugins } from '@capacitor/core';
 import { HttpClient } from '@angular/common/http';
 import { LoginOtpPage } from '../login-otp/login-otp.page';
+import { FcmService } from 'src/app/services/fcm.service';
 const { FacebookLogin,Toast } = Plugins;
 @Component({
   selector: 'app-login',
@@ -27,7 +28,8 @@ export class LoginPage implements OnInit {
     private loginService:LoginService,
     private providerService:ProvidersService,
     private chatService:ChatService,
-    private http:HttpClient
+    private http:HttpClient,
+    private fcmService:FcmService
   ) { 
   }
 
@@ -50,6 +52,7 @@ export class LoginPage implements OnInit {
           localStorage.setItem("username",res["data"]["username"]);
           localStorage.setItem("email",res["data"]["email"]);
           this.loginService.hasLoggedIn.next(true);
+          this.fcmService.initPush();
           this.providerService.hasWishlistedOrRemoved.next("data");
           this.chatService.hasRecievedMessage.next("no");
           this.chatService.hasRecievedNotification.next("no");
@@ -93,6 +96,7 @@ export class LoginPage implements OnInit {
             localStorage.setItem("username",loginData["username"]);
             localStorage.setItem("email",loginData["email"]);
             this.loginService.hasLoggedIn.next(true);
+            this.fcmService.initPush();
             this.providerService.hasWishlistedOrRemoved.next("data");
             this.chatService.hasRecievedMessage.next("no");
             this.chatService.hasRecievedNotification.next("no");
@@ -108,7 +112,6 @@ export class LoginPage implements OnInit {
   async fbLogin(){
     const FACEBOOK_PERMISSIONS = ['email'];
     const result = await FacebookLogin.login({ permissions: FACEBOOK_PERMISSIONS });
-
     if (result.accessToken) {
        this.loadUserData(result.accessToken);
     } else {
@@ -125,7 +128,6 @@ export class LoginPage implements OnInit {
   async loadUserData(accessToken:any) {
     const url = `https://graph.facebook.com/${accessToken.userId}?fields=id,name,email&access_token=${accessToken.token}`;
     this.http.get(url).subscribe(res => {
-      // this.showToast("Fb login successfull :"+res['email']);
       this.socialLogin(accessToken.token,res['email'],"FACEBOOK");
     },error=>{
       console.log(error.message);
@@ -146,6 +148,7 @@ export class LoginPage implements OnInit {
           localStorage.setItem("username",res["data"]["username"]);
           localStorage.setItem("email",res["data"]["email"]);
           this.loginService.hasLoggedIn.next(true);
+          this.fcmService.initPush();
           this.providerService.hasWishlistedOrRemoved.next("data");
           this.chatService.hasRecievedMessage.next("no");
           this.chatService.hasRecievedNotification.next("no");

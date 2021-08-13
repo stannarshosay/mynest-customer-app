@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   Plugins,
   PushNotification,
@@ -15,7 +16,8 @@ const {PushNotifications,Modals,Device} = Plugins;
 export class FcmService {
 
   constructor(
-    private http:HttpClient
+    private http:HttpClient,
+    private router:Router
   ) { }
 
   public initPush(){
@@ -54,6 +56,12 @@ export class FcmService {
       // this.showAlert("recieved => "+JSON.stringify(notification));
     });
     PushNotifications.addListener("pushNotificationActionPerformed",async (notification:PushNotificationActionPerformed)=>{
+      if(notification.notification.data.notificationType == "message"){
+          this.router.navigateByUrl("/home/tabs/chatroom");
+      }else{       
+          this.router.navigateByUrl("/home/tabs/notifications");
+      }      
+      // PushNotifications.removeAllDeliveredNotifications();
       // this.showAlert("action performed => "+JSON.stringify(notification.notification.data));
     });
   }
@@ -63,9 +71,9 @@ export class FcmService {
       message: data
     });
   }
-  removeTokenOnLogout(){
+  removeTokenOnLogout(customerId:string){
     this.getDeviceId().then(result=>{
-      this.removeMobileToken(localStorage.getItem("uid"),result["uuid"]).subscribe(res=>{
+      this.removeMobileToken(customerId,result["uuid"]).subscribe(res=>{
         if(res["success"]){
           localStorage.setItem("mnFcmToken","");
         }
@@ -76,7 +84,7 @@ export class FcmService {
   }
   addTokenForUser(token:string){
     this.getDeviceId().then(result=>{
-      this.addMobileToken(localStorage.getItem("uid"),result["uuid"],token).subscribe(res=>{
+      this.addMobileToken(localStorage.getItem("uid"),result["uuid"],JSON.parse(token).value).subscribe(res=>{
         if(res["success"]){
           localStorage.setItem("mnFcmToken",token);
         }
@@ -86,9 +94,16 @@ export class FcmService {
     });
   }
   removeMobileToken(customerId:string,deviceId:string){
-    return this.http.post("https://mynestonline.com/collection/api/mobile/token/delete?userId="+customerId+"&deviceId="+deviceId,null);
+    let param = {};
+    param["userId"]=customerId;
+    param["deviceId"] = deviceId;
+    return this.http.post("https://mynestonline.com/collection/api/mobile/token/delete",param);
   }
   addMobileToken(customerId:string,deviceId:string,token:string){
-    return this.http.post("https://mynestonline.com/collection/api/mobile/token/new?userId="+customerId+"&deviceId="+deviceId+"&token="+token,null);
+    let param = {};
+    param["userId"]=customerId;
+    param["deviceId"] = deviceId;
+    param["token"] = token;
+    return this.http.post("https://mynestonline.com/collection/api/mobile/token/new",param);
   }
 }

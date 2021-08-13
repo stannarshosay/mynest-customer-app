@@ -214,7 +214,7 @@ export class HomePage {
     }catch(err){
       console.log("not a social login");
     } 
-    this.fcmService.removeTokenOnLogout();
+    this.fcmService.removeTokenOnLogout(localStorage.getItem("uid"));
     localStorage.setItem("uid","");
     localStorage.setItem("username","");
     localStorage.setItem("email","");

@@ -21,7 +21,6 @@ export class AppComponent {
     private loginService:LoginService,
     private chatService:ChatService,
     public platform:Platform,
-    private fcmService:FcmService,
     private router:Router
   ) {}
   ngOnInit():void{
@@ -33,7 +32,6 @@ export class AppComponent {
         this.loginService.getLoginSetStatus().subscribe(res=>{
           if(res){
             this.chatService.connectAndSubscribeToWebsocket();
-            this.fcmService.initPush();
           }else{
             this.chatService.disconnectFromWebsocket();
           }

@@ -7,7 +7,7 @@
         <ion-spinner name="crescent" class="ml-auto mr-auto d-block" color="primary" *ngIf="isGettingHomeTopImages"></ion-spinner>
         <ion-slides pager="true" [options]="slideOpts" *ngIf="!isGettingHomeTopImages">
             <ion-slide *ngFor="let topAd of topAds">
-                <img (click)="getAdLink(topAd.website)" [class.default-cursor]="topAd.website==null" style="height: 170px;object-fit: unset;width:100%" [src]="getImagePath(topAd.picName)" alt="Image Description">
+                <img (click)="getAdLink(topAd.website)" [class.default-cursor]="topAd.website==null" style="height: 180px;object-fit: unset;width:100%" [src]="getImagePath(topAd.picName)" alt="Image Description">
             </ion-slide>
         </ion-slides>
     </div>
@@ -42,7 +42,7 @@
             <ion-spinner color="primary" class="ml-auto mr-auto d-block" name="crescent" *ngIf="isGettingHomeBottomImages"></ion-spinner>
             <ion-slides pager="true" [options]="slideOpts" *ngIf="!isGettingHomeBottomImages">
                 <ion-slide *ngFor="let bottomAd of bottomAds">
-                    <img (click)="getAdLink(bottomAd.website)" [class.default-cursor]="bottomAd.website==null" style="height: 170px;object-fit: unset;width:100%" [src]="getImagePath(bottomAd.picName)" alt="Image Description">
+                    <img (click)="getAdLink(bottomAd.website)" [class.default-cursor]="bottomAd.website==null" style="height: 180px;object-fit: unset;width:100%" [src]="getImagePath(bottomAd.picName)" alt="Image Description">
                 </ion-slide>
             </ion-slides>
         </div>
