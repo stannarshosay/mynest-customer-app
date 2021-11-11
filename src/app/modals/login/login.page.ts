@@ -5,12 +5,12 @@ import { ModalController } from '@ionic/angular';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoginService } from 'src/app/services/login.service';
 import { ProvidersService } from 'src/app/services/providers.service';
-import '@codetrix-studio/capacitor-google-auth';
-import { Plugins } from '@capacitor/core';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { HttpClient } from '@angular/common/http';
 import { LoginOtpPage } from '../login-otp/login-otp.page';
 import { FcmService } from 'src/app/services/fcm.service';
-const { FacebookLogin,Toast } = Plugins;
+import { Toast } from '@capacitor/toast';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -34,6 +34,7 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
+    GoogleAuth.init();
   }
   dismiss(shouldRedirect:boolean,modal:any){
     this.modalCtrl.dismiss({
@@ -120,7 +121,7 @@ export class LoginPage implements OnInit {
     }
   } 
   async googleSignup() {
-    const googleUser = await Plugins.GoogleAuth.signIn() as any;
+    const googleUser = await GoogleAuth.signIn();
     console.log(googleUser.email+" : "+googleUser.authentication.idToken);
     // this.showToast(googleUser.email+" : "+googleUser.authentication.idToken);
     this.socialLogin(googleUser.authentication.idToken,googleUser.email,"GOOGLE");

@@ -5,9 +5,9 @@ import { ModalController } from '@ionic/angular';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoginService } from 'src/app/services/login.service';
 import { ProvidersService } from 'src/app/services/providers.service';
-import '@codetrix-studio/capacitor-google-auth';
-import { Plugins } from '@capacitor/core';
-const { FacebookLogin,Toast } = Plugins;
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { Toast } from '@capacitor/toast';
+import { FacebookLogin } from '@capacitor-community/facebook-login';
 import { HttpClient } from '@angular/common/http';
 import { FcmService } from 'src/app/services/fcm.service';
 @Component({
@@ -117,7 +117,7 @@ export class SignupPage implements OnInit {
     }
   } 
   async googleSignup() {
-    const googleUser = await Plugins.GoogleAuth.signIn() as any;
+    const googleUser = await GoogleAuth.signIn();
     console.log(googleUser.email+" : "+googleUser.authentication.idToken);
     // this.showToast(googleUser.email+" : "+googleUser.authentication.idToken);
     this.socialLogin(googleUser.authentication.idToken,googleUser.email,"GOOGLE");

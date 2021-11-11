@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ChatService } from './services/chat.service';
 import { LoginService } from './services/login.service';
-import { LocalNotificationSchedule, Plugins } from '@capacitor/core';
 import { IonRouterOutlet, Platform } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { FcmService } from './services/fcm.service';
-const { App,SplashScreen,Toast,BackgroundTask,LocalNotifications } = Plugins;
+import { App } from '@capacitor/app';
+import { SplashScreen } from '@capacitor/splash-screen';
+import { Toast } from '@capacitor/toast';
 
 @Component({
   selector: 'app-root',
@@ -36,12 +36,7 @@ export class AppComponent {
             this.chatService.disconnectFromWebsocket();
           }
         });
-        SplashScreen.hide(); 
-        // this.setBackgroundTask();
-        // let schedule:LocalNotificationSchedule = {
-        //   repeats:true,every:"minute"
-        // }
-        // this.setNotifications(schedule,"Mynest demo notifcation","Runs every minute");
+        SplashScreen.hide();        
         this.setBackButton();
       }, 2000);     
     });
@@ -69,46 +64,6 @@ export class AppComponent {
   async showToast() {
     await Toast.show({
       text: 'Press back again to exit!'
-    });
-  }
-  async setNotifications(schedule:LocalNotificationSchedule,title:string,body:string){
-    const notifs = await LocalNotifications.schedule({
-      notifications: [
-        {
-          title: title,
-          body: body,
-          id: 1,
-          schedule: schedule,
-          sound: null,
-          attachments: null,
-          actionTypeId: "",
-          extra: null
-        }
-      ]
-    });
-    console.log('scheduled notifications', notifs);
-  }
-  setBackgroundTask(){
-    App.addListener('appStateChange', (state) => {
-
-      if (!state.isActive) {       
-        let taskId = BackgroundTask.beforeExit(async () => {
-        
-          var start = new Date().getTime();
-          for (var i = 0; i < 1e18; i++) {
-            if ((new Date().getTime() - start) > 20000){
-              break;
-            }
-          }          
-          let schedule:LocalNotificationSchedule = {
-            at: new Date(Date.now() + 1000 * 5) 
-          }          
-          this.setNotifications(schedule,"Background task demo","completed background tasks");
-          BackgroundTask.finish({
-            taskId
-          })
-        });
-      }
     });
   }
   ngOnDestroy():void{

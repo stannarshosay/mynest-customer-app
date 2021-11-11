@@ -1,0 +1,33 @@
+
+import { CapacitorConfig } from '@capacitor/cli';
+
+const config: CapacitorConfig = {
+    appId: "ionic.mynest.customer",
+    appName: "mynest-customer",
+    bundledWebRuntime: false,
+    webDir: "www",
+    plugins: {
+        SplashScreen: {
+            launchShowDuration: 2000,
+            launchAutoHide: false
+        },
+        LocalNotifications: {
+            smallIcon: "ic_stat_icon_config_sample",
+            iconColor: "#488AFF",
+            sound: "beep.wav"
+        },
+        GoogleAuth: {
+            scopes: ["email"],
+            serverClientId: "1029253774010-6q5hil6ctiu6j2ip30p1ksnv009ep9im.apps.googleusercontent.com",
+            forceCodeForRefreshToken: true
+        },
+        PushNotifications: {
+            presentationOptions: ["badge", "sound", "alert"]
+        }
+    },
+    cordova: {}
+}
+
+export default config;
+
+

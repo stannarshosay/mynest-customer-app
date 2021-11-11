@@ -8,9 +8,8 @@ import { CategoryService } from 'src/app/services/category.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { LocationService } from 'src/app/services/location.service';
 import { LoginService } from 'src/app/services/login.service';
-import { Plugins } from '@capacitor/core';
+import { Toast } from '@capacitor/toast';
 import { Platform } from '@ionic/angular';
-const { Toast } = Plugins;
 @Component({
   selector: 'app-post-requirement',
   templateUrl: './post-requirement.page.html',

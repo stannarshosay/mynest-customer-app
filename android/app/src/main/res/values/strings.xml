@@ -5,6 +5,6 @@
     <string name="package_name">ionic.mynest.customer</string>
     <string name="custom_url_scheme">ionic.mynest.customer</string>
     <string name="facebook_app_id">216479480481243</string>
-    <string name="fb_login_protocol_scheme">fb216479480481243</string>
+    <string name="facebook_client_token">fb216479480481243</string>
     <string name="server_client_id">1029253774010-6q5hil6ctiu6j2ip30p1ksnv009ep9im.apps.googleusercontent.com</string>
 </resources>

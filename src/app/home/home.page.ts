@@ -9,9 +9,9 @@ import { ChatService } from '../services/chat.service';
 import { CustomerService } from '../services/customer.service';
 import { LoginService } from '../services/login.service';
 import { ProvidersService } from '../services/providers.service';
-import { Plugins } from '@capacitor/core';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { FcmService } from '../services/fcm.service';
-const { FacebookLogin } = Plugins;
+import { FacebookLogin } from '@capacitor-community/facebook-login';
 
 @Component({
   selector: 'app-home',
@@ -209,7 +209,7 @@ export class HomePage {
   }
   async logout(){  
     try{ 
-      await Plugins.GoogleAuth.signOut();
+      await GoogleAuth.signOut();
       await FacebookLogin.logout();   
     }catch(err){
       console.log("not a social login");
