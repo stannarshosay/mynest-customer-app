@@ -34,7 +34,6 @@ export class LoginPage implements OnInit {
   }
 
   ngOnInit() {
-    GoogleAuth.init();
   }
   dismiss(shouldRedirect:boolean,modal:any){
     this.modalCtrl.dismiss({

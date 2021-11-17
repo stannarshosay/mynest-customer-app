@@ -2,11 +2,13 @@
     <ion-toolbar fxLayout="row" fxLayoutAlign="start center">
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/home"></ion-back-button>
-            <ion-title>Profile</ion-title>
         </ion-buttons>
-        <ion-label slot="end" class="ion-padding pt-0 pb-0">
-            <a href="javascript:void(0);" (click)="toggleWishlist($event)" class="sl-like" [class.liked]="provider.wishListed"><i class="fas fa-heart"></i></a>
-        </ion-label>
+        <ion-buttons slot="primary">
+            <ion-label slot="end" class="ion-padding pt-0 pb-0">
+                <a href="javascript:void(0);" (click)="toggleWishlist($event)" class="sl-like" [class.liked]="provider.wishListed"><i class="fas fa-heart"></i></a>
+            </ion-label>
+        </ion-buttons>
+        <ion-title>Profile</ion-title>
     </ion-toolbar>
 </ion-header>
 
