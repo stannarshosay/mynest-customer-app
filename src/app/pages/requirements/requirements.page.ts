@@ -19,7 +19,7 @@ export class RequirementsPage implements OnInit {
   pageNo:number = 0;
   pageSize:number = 9;
   config:any = {};
-  segment:string;
+  segment:string = "active";
   isGettingActiveRequirements:boolean = true;
   isGettingClosedrequirements:boolean = true;
 
@@ -38,8 +38,7 @@ export class RequirementsPage implements OnInit {
     private navController:NavController
   ) { }
 
-  ngOnInit(): void {   
-    this.segment = "active";
+  ngOnInit(): void {  
   }
   ionViewWillEnter(){
     this.config["totalItems"] = 0;

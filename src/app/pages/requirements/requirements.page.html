@@ -15,7 +15,7 @@
     <main class="sl-main p-0">
         <!-- SERVICE PROVIDER START -->
         <section class="sl-main-section p-0">
-            <div *ngIf="segment=='active'" class="animate__animated animate__slideInUp animate__fast">
+            <div *ngIf="segment=='active'">
                 <div *ngIf="!isGettingActiveRequirements">
                     <div *ngIf="!isGettingActiveRequirementsSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
                         <img src="assets/images/vendor/no-results.png">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="segment=='inactive'" class="animate__animated animate__slideInUp animate__fast">
+            <div *ngIf="segment=='inactive'">
                 <div *ngIf="!isGettingClosedrequirements">
                     <div *ngIf="!isGettingClosedrequirementsSuccess" class="mn-no-results" fxLayout="column" fxLayoutAlign="center center">
                         <img src="assets/images/vendor/no-results.png">
@@ -169,7 +169,7 @@
 <ion-footer>
     <ion-toolbar>
         <ion-segment [(ngModel)]="segment" class="w-100">
-            <ion-segment-button value="active" checked>
+            <ion-segment-button value="active">
                 <ion-label>Active</ion-label>
             </ion-segment-button>
             <ion-segment-button value="inactive">
