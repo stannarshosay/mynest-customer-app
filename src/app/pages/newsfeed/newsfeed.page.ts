@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NewsfeedService } from 'src/app/services/newsfeed.service';
 import moment from 'moment';
+import { PopoverController } from '@ionic/angular';
+import { SharePopoverComponent } from 'src/app/popovers/share-popover/share-popover.component';
 @Component({
   selector: 'app-newsfeed',
   templateUrl: './newsfeed.page.html',
@@ -14,9 +16,10 @@ export class NewsfeedPage implements OnInit {
   isNewsfeedLoaded:boolean = false;
   constructor(
     private route:ActivatedRoute,
-    private newsfeedService:NewsfeedService
+    private newsfeedService:NewsfeedService,
+    public popoverController: PopoverController   
   ) { }
-
+ 
   ngOnInit(): void {
   }
   ionViewWillEnter(){
@@ -64,6 +67,25 @@ export class NewsfeedPage implements OnInit {
       return "Yesterday";
     }
     return date.format('Do MMM YYYY');
+  }
+  async presentPopover(ev: any,news:any) {
+    ev.stopPropagation();
+    const popover = await this.popoverController.create({
+      component: SharePopoverComponent,
+      componentProps:{
+        "facebook": "https://www.facebook.com/sharer/sharer.php?u="+this.getShareLink(news.newsId),
+        "twitter":"https://twitter.com/intent/tweet?url="+this.getShareLink(news.newsId),
+        "gmail":"https://mail.google.com/mail/?view=cm&fs=1&su="+this.getEncoded(news.title)+"&body="+this.getShareLink(news.newsId),
+        "linkedin":"https://www.linkedin.com/sharing/share-offsite/?url="+this.getShareLink(news.newsId),
+        "whatsapp":"https://wa.me/?text="+this.getShareLink(news.newsId)
+      },
+      cssClass: 'share-popover',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+    const { role } = await popover.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', role);
   }
  doRefresh(event:any) {
   this.getNewsfeedById();

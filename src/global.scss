@@ -138,3 +138,10 @@
     align-items: flex-end;
     --backdrop-opacity: var(--ion-backdrop-opacity, 0.4);
 }
+
+
+/*Popover share*/
+
+.share-popover .popover-content {
+    width: 11em;
+}

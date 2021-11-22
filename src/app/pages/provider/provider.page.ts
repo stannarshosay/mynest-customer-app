@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController, NavController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ForgotPasswordPage } from 'src/app/modals/forgot-password/forgot-password.page';
 import { ImageViewerPage } from 'src/app/modals/image-viewer/image-viewer.page';
 import { LoginPage } from 'src/app/modals/login/login.page';
 import { ReportVendorPage } from 'src/app/modals/report-vendor/report-vendor.page';
 import { SignupPage } from 'src/app/modals/signup/signup.page';
+import { SharePopoverComponent } from 'src/app/popovers/share-popover/share-popover.component';
 import { CategoryService } from 'src/app/services/category.service';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoginService } from 'src/app/services/login.service';
@@ -46,7 +47,8 @@ export class ProviderPage implements OnInit {
     private metaService:Meta,
     private loginService:LoginService,
     private chatService:ChatService,
-    private navController:NavController
+    private navController:NavController,
+    public popoverController: PopoverController 
   ) {
 
    }
@@ -353,6 +355,25 @@ export class ProviderPage implements OnInit {
       'https://www.google.com/maps/search/?api=1&query='+lat+','+lng,
       '_blank'
     );
+  }
+  async presentPopover(ev: any,provider:any) {
+    ev.stopPropagation();
+    const popover = await this.popoverController.create({
+      component: SharePopoverComponent,
+      componentProps:{
+        "facebook": "https://www.facebook.com/sharer/sharer.php?u="+this.getShareLink(provider.vendorId),
+        "twitter":"https://twitter.com/intent/tweet?url="+this.getShareLink(provider.vendorId),
+        "gmail":"https://mail.google.com/mail/?view=cm&fs=1&su="+this.getEncoded(provider.companyName)+"&body="+this.getShareLink(provider.vendorId),
+        "linkedin":"https://www.linkedin.com/sharing/share-offsite/?url="+this.getShareLink(provider.vendorId),
+        "whatsapp":"https://wa.me/?text="+this.getShareLink(provider.vendorId)
+      },
+      cssClass: 'share-popover',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+    const { role } = await popover.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', role);
   }
   doRefresh(event:any) {
   this.serviceAd = encodeURIComponent("default.jpg");

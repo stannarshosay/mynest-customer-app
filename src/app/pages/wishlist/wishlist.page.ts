@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { SharePopoverComponent } from 'src/app/popovers/share-popover/share-popover.component';
 import { ChatService } from 'src/app/services/chat.service';
 import { LoginService } from 'src/app/services/login.service';
 import { ProvidersService } from 'src/app/services/providers.service';
@@ -30,7 +31,8 @@ export class WishlistPage implements OnInit {
     private loginService:LoginService,
     private router:Router,
     private navController:NavController,
-    private chatService:ChatService
+    private chatService:ChatService,
+    public popoverController: PopoverController 
   ) { }
 
   ngOnInit(): void {    
@@ -140,6 +142,25 @@ export class WishlistPage implements OnInit {
       this.chatService.setContactData(contactData);
       this.navController.navigateForward(["/chat"]);    
   }  
+  async presentPopover(ev: any,provider:any) {
+    ev.stopPropagation();
+    const popover = await this.popoverController.create({
+      component: SharePopoverComponent,
+      componentProps:{
+        "facebook": "https://www.facebook.com/sharer/sharer.php?u="+this.getShareLink(provider.vendorId),
+        "twitter":"https://twitter.com/intent/tweet?url="+this.getShareLink(provider.vendorId),
+        "gmail":"https://mail.google.com/mail/?view=cm&fs=1&su="+this.getEncoded(provider.companyName)+"&body="+this.getShareLink(provider.vendorId),
+        "linkedin":"https://www.linkedin.com/sharing/share-offsite/?url="+this.getShareLink(provider.vendorId),
+        "whatsapp":"https://wa.me/?text="+this.getShareLink(provider.vendorId)
+      },
+      cssClass: 'share-popover',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+    const { role } = await popover.onDidDismiss();
+    // console.log('onDidDismiss resolved with role', role);
+  }
   doRefresh(event:any) { 
     this.isProvidersLoaded = false;
     this.isProvidersDataSuccess = true;
