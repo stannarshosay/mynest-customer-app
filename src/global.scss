@@ -145,3 +145,269 @@
 .share-popover .popover-content {
     width: 11em;
 }
+
+
+/*
+ * Dark Colors
+ * -------------------------------------------
+ */
+
+body.dark {
+    --ion-color-primary: #039eba;
+    .sl-main-section.category-background,
+    app-categories ion-content.category-background {
+        background: none;
+        --background: none;
+    }
+    ion-searchbar {
+        --background: black;
+    }
+    .sl-category__service {
+        background-color: #2f2f2f;
+        border: inherit;
+        box-shadow: 0px 4px 13px black;
+    }
+    .sl-latestblog .sl-featuredProducts--post__content h5 {
+        color: #039eba;
+    }
+    .sl-featuredProducts--post,
+    .sl-blogsingle__img img,
+    .sl-appointment__img img {
+        box-shadow: 0px 4px 8px black;
+    }
+    ion-tab-bar {
+        box-shadow: 0px -1px 13px black;
+    }
+    .sl-user__description,
+    .btn.sl-btn.sl-btn-outline {
+        color: white!important;
+    }
+    .sl-optionsbar:after,
+    .sl-oroption:before,
+    .sl-newAppointments__services:before {
+        background: #585858;
+    }
+    .i-userlist li a,
+    .i-userlist li>a>ion-icon {
+        color: #a6a6a6;
+    }
+    .sl-serviceProvider-blog .sl-featuredProducts--post__content,
+    .sl-registerarea__terms {
+        border: inherit;
+    }
+    .sl-optionsbar em,
+    .sl-oroption span {
+        background: #1f1e1e;
+    }
+    .sl-form-control,
+    .sl-form-control:active,
+    .sl-form-control:hover,
+    .sl-form-control:focus,
+    .sl-form-control:focus-within,
+    .sl-form-control:focus-visible,
+    .sl-checkbox>label::before,
+    .sl-radio>label::before,
+    .sl-messageUser__area--right p,
+    .sl-messageUser__area--left p,
+    .otp-input {
+        background: black!important;
+        border-color: black!important;
+    }
+    .sl-checkbox>label::after,
+    .sl-radio>label::after,
+    .sl-slider h5 a,
+    .sl-notititle h4 a,
+    .sl-newAppointments__userText h5 a {
+        color: white;
+    }
+    .sl-loginfooterinfo a+a {
+        border-left: #585858;
+    }
+    .sl-notidescription p,
+    .sl-newAppointments__userText p {
+        color: #898787;
+    }
+    .sl-registerarea__footer {
+        border: none;
+    }
+    .mn-tags>span {
+        background: black;
+        color: white;
+    }
+    .sl-slider figure>a:first-child+a img,
+    .sl-messageUser__heading {
+        background: black;
+    }
+    .otp-input:focus-visible {
+        border: none;
+        outline: none;
+    }
+    .sl-slider {
+        box-shadow: 0px 6px 10px black;
+    }
+    .close-fake {
+        ion-icon {
+            color: white;
+        }
+    }
+    .sl-appointment,
+    .sl-emoji {
+        background: transparent;
+    }
+    .sl-emoji {
+        border: none;
+    }
+    .sl-emoji .sl-form-control {
+        background-color: #2f2f2f;
+        border-color: #2f2f2f;
+    }
+    .sl-shareHolder__option,
+    .mn-uploader {
+        background: black;
+        border: none;
+    }
+    .sl-inbox__user {
+        overflow-y: auto;
+    }
+    .sl-inbox__user--list li:hover {
+        background: inherit;
+    }
+    .sl-checkbox>label::before,
+    .sl-radio>label::before {
+        background: black;
+    }
+    .sl-newAppointments__items {
+        border: none;
+        border-bottom: 1px solid #898787;
+    }
+    .sl-newAppointments__items:hover {
+        background: inherit;
+    }
+    .sl-newAppointments .sl-dashboardbox__content {
+        border: none;
+    }
+    /*angular material*/
+    .mat-icon.mat-primary {
+        color: #039eba;
+    }
+    .mat-expansion-panel {
+        background: #1f1e1e;
+        color: white;
+    }
+    .mat-expansion-panel:not([class*='mat-elevation-z']) {
+        box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    }
+    .mat-action-row {
+        border-top-color: rgba(255, 255, 255, 0.12);
+    }
+    .mat-expansion-panel .mat-expansion-panel-header.cdk-keyboard-focused:not([aria-disabled='true']),
+    .mat-expansion-panel .mat-expansion-panel-header.cdk-program-focused:not([aria-disabled='true']),
+    .mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:hover:not([aria-disabled='true']) {
+        background: rgba(250, 250, 250, 0.04);
+    }
+    @media (hover: none) {
+        .mat-expansion-panel:not(.mat-expanded):not([aria-disabled='true']) .mat-expansion-panel-header:hover {
+            background: #1f1e1e;
+        }
+    }
+    .mat-expansion-panel-header-title {
+        color: white;
+    }
+    .mat-expansion-panel-header-description,
+    .mat-expansion-indicator::after {
+        color: rgba(255, 255, 255, 0.7);
+    }
+    .mat-expansion-panel-header[aria-disabled='true'] {
+        color: rgba(255, 255, 255, 0.3);
+    }
+    .mat-expansion-panel-header[aria-disabled='true'] .mat-expansion-panel-header-title,
+    .mat-expansion-panel-header[aria-disabled='true'] .mat-expansion-panel-header-description {
+        color: inherit;
+    }
+    .mat-expansion-panel-header {
+        height: 48px;
+    }
+    .mat-expansion-panel-header.mat-expanded {
+        height: 64px;
+    }
+    .mat-form-field-appearance-outline .mat-form-field-outline,
+    .mat-select-panel,
+    .element-subcategory {
+        background: black;
+    }
+    .mat-hint,
+    .mat-option,
+    .mat-select-value,
+    .mat-pseudo-checkbox,
+    .mat-step-text-label {
+        color: white;
+    }
+    .mat-select-arrow,
+    .mat-form-field-label {
+        color: #5a5a5a;
+    }
+    .mat-stepper-horizontal,
+    .mat-stepper-vertical {
+        background: #2f2f2f;
+    }
+    .mat-step-header .mat-step-icon-selected,
+    .mat-step-header .mat-step-icon-state-done,
+    .mat-step-header .mat-step-icon-state-edit {
+        background: #039eba;
+    }
+}
+
+
+/*
+   * iOS Dark Theme
+   * -------------------------------------------
+   */
+
+.ios body.dark {
+    --ion-background-color: #1f1e1e;
+    --ion-background-color-rgb: 0, 0, 0;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-color-step-50: #0d0d0d;
+    --ion-color-step-100: #1a1a1a;
+    --ion-color-step-150: #262626;
+    --ion-color-step-200: #333333;
+    --ion-color-step-250: #404040;
+    --ion-item-background: #000000;
+    --ion-card-background: #1c1c1d;
+    ion-searchbar {
+        padding-top: 10px;
+    }
+    .sl-select select,
+    .sl-form-control,
+    .select2-container--default .select2-selection--single,
+    .sl-signupform .sl-btnarea .sl-checkbox label:before,
+    .sl-signupform .sl-btnarea .sl-radio label:before,
+    .sl-signupform .sl-btnarea .sl-checkbox label:after,
+    .sl-signupform .sl-btnarea .sl-radio label:after,
+    .otp-input,
+    .sl-messageUser__area--right p,
+    .sl-messageUser__area--left p {
+        background: black!important;
+        border-color: black!important;
+    }
+    .sl-signupform .sl-btnarea .sl-checkbox label:before,
+    .sl-signupform .sl-btnarea .sl-radio label:before,
+    .sl-signupform .sl-btnarea .sl-checkbox label:after,
+    .sl-signupform .sl-btnarea .sl-radio label:after {
+        color: white;
+    }
+    .otp-input:focus-visible,
+    .otp-input:focus,
+    .otp-input {
+        border: none!important;
+        outline: none!important;
+    }
+}
+
+.ios body.dark ion-modal {
+    --ion-background-color: var(--ion-color-step-100);
+    --ion-toolbar-background: var(--ion-color-step-150);
+    --ion-toolbar-border-color: var(--ion-color-step-250);
+    --ion-item-background: var(--ion-color-step-150);
+}

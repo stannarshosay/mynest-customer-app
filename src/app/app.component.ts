@@ -28,6 +28,7 @@ export class AppComponent {
   }
   initializeApp() {
     this.platform.ready().then(() => {
+      this.checkColorModes();
       setTimeout(()=>{
         this.loginService.getLoginSetStatus().subscribe(res=>{
           if(res){
@@ -60,6 +61,14 @@ export class AppComponent {
         }
       }
     });
+  }
+  checkColorModes(){
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    this.toggleDarkTheme(prefersDark.matches);
+    prefersDark.addEventListener('change',(mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
+  }
+  toggleDarkTheme(shouldAdd:boolean){
+    document.body.classList.toggle('dark', shouldAdd);
   }
   async showToast() {
     await Toast.show({
