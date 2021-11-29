@@ -68,7 +68,7 @@ export class AppComponent {
     prefersDark.addEventListener('change',(mediaQuery) => this.toggleDarkTheme(mediaQuery.matches));
   }
   toggleDarkTheme(shouldAdd:boolean){
-    document.body.classList.toggle('dark', shouldAdd);
+    document.body.classList.toggle('dark', true);
   }
   async showToast() {
     await Toast.show({
